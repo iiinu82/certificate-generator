@@ -1,0 +1,254 @@
+body {
+  margin: 0;
+  padding: 30px;
+  font-family: sans-serif;
+}
+
+input,
+select {
+  display: block;
+  width: 300px;
+  padding: 10px;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+button {
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.flex {
+  margin: 0 auto;
+  display: flex;
+  width: 1400px;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.mainForm {
+  border: 5px double #333;
+  border-radius: 5px;
+}
+.inputDataArea {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid rgb(199, 199, 199);
+}
+
+.inputDataArea h3 {
+  font-size: 22px;
+  margin: 0;
+}
+
+.inputDataArea button {
+  padding: 6px 12px;
+  margin-top: 20px;
+  background-color: rgb(0, 187, 0);
+  color: white;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.modal,
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal form,
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  min-width: 300px;
+  color: black;
+  transform: translateX(-65%);
+}
+
+.modal form {
+  transform: translateX(-120%);
+}
+
+.modal .buttonArea,
+.modalButtons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancelButton {
+  padding: 6px 12px;
+  border-radius: 5px;
+  background-color: rgb(235, 235, 235);
+  color: rgb(44, 44, 44);
+}
+.submitButton {
+  padding: 6px 12px;
+  border-radius: 5px;
+  background-color: rgb(0, 208, 0);
+  color: white;
+}
+.deleteButton {
+  padding: 6px 12px;
+  border-radius: 5px;
+  background-color: rgb(246, 0, 0);
+  color: white;
+}
+
+.memoArea {
+  margin-top: 200px;
+  width: 350px;
+  max-height: 600px;
+  border: 1px dashed rgb(199, 199, 199);
+  padding: 20px;
+}
+
+.memoArea h3 {
+  margin: 0;
+}
+
+/* 登録リスト */
+.listArea {
+  width: 100%;
+  max-width: 800px;
+  margin: 30px auto;
+}
+
+.listArea h2 {
+  margin-bottom: 15px;
+}
+
+/* 見出し */
+.listHeader {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr 1fr 220px;
+
+  padding: 10px 12px;
+
+  font-weight: bold;
+  border-bottom: 2px solid #333;
+}
+
+/* 登録データ */
+.registrationList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.registrationItem {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr 1fr 220px;
+
+  align-items: center;
+
+  padding: 12px;
+
+  border-bottom: 1px solid #ddd;
+}
+
+.itemButtons {
+  display: flex;
+  gap: 10px;
+}
+
+/* 証明書モーダル */
+.certificate-modal-content {
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+  width: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  color: black;
+}
+
+.certificate-sheet {
+  box-sizing: border-box;
+  width: 655.8px;
+  border: 3px double #333;
+  padding: 50px 20px;
+  background-color: #fdfbf7;
+}
+
+.cert-title {
+  font-size: 50px;
+  margin-bottom: 30px;
+  letter-spacing: 5px;
+}
+
+.cert-name {
+  font-size: 40px;
+  margin: 20px 0;
+}
+
+.cert-info {
+  font-size: 30px;
+  margin: 10px 0;
+}
+
+.cert-body {
+  margin: 30px 0;
+  line-height: 1.8;
+}
+
+.cert-text {
+  font-size: 25px;
+  text-align: center;
+}
+
+.cert-footer {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-around;
+  font-size: 16px;
+  gap: 40px;
+}
+
+/* --- 🖨️ 印刷（PDF保存）するときの特別なルール --- */
+@media print {
+  /* 印刷に関係ないものをすべて隠す */
+  body * {
+    visibility: hidden;
+  }
+
+  /* 賞状シートとその中身だけを表示する */
+  .certificate-sheet,
+  .certificate-sheet * {
+    visibility: visible;
+  }
+
+  /* 💡 印刷時のレイアウト調整 */
+  .certificate-sheet {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    border: 4px double #000; /* 印刷時に少し太くすると綺麗です */
+    background-color: white !important;
+
+    /* 印刷用紙の中央に綺麗に収めるための調整 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

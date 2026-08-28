@@ -137,8 +137,17 @@ h1 {
   margin: 20px auto;
 }
 
-.listArea h2 {
-  margin-bottom: 10px;
+.listAreaTop {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.listAreaTop button {
+  width: 220px;
+  height: 35px;
+  background-color: rgb(129, 129, 129);
 }
 
 /* 見出し */

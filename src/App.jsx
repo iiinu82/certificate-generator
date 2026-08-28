@@ -187,6 +187,110 @@ function App() {
     result: "合否",
   };
 
+  // リストデータをエクスポートする
+  const handleExportCSV = () => {
+    if (list.length === 0) {
+      alert("保存するデータがありません！");
+      return;
+    }
+
+    // 1. CSVのヘッダー（1行目）
+    const headers = ["名前", "所属", "番号", "合否", "認定日"];
+
+    // 2. データの行を作成
+    const rows = list.map((item) => [
+      `"${item.name}"`,
+      `"${item.group}"`,
+      `"${item.number}"`,
+      `"${item.result}"`,
+      `"${item.date || ""}"`,
+    ]);
+
+    // 3. ヘッダーと行を改行で結合してひとつのCSV文字列にする
+    const csvContent = [
+      headers.join(","),
+      ...rows.map((row) => row.join(",")),
+    ].join("\n");
+
+    // 4. BOM（文字化け防止用）を付与してBlob（ファイルデータ）を作る
+    const bom = new Uint8Array([0xef, 0xbb, 0xbf]); // Excelで開いたときの文字化け対策
+    const blob = new Blob([bom, csvContent], {
+      type: "text/csv;charset=utf-8;",
+    });
+
+    // 5. 現在の年月日・時間を取得してファイル名にする
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, "0");
+    const d = String(now.getDate()).padStart(2, "0");
+    const h = String(now.getHours()).padStart(2, "0");
+    const min = String(now.getMinutes()).padStart(2, "0");
+    const fileName = `certificate_list_${y}${m}${d}_${h}${min}.csv`;
+
+    // 6. 仮想的なダウンロードリンクを作って自動クリックさせる
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  // 📂 CSVファイルを読み込んでリストを復元する関数
+  const handleImportCSV = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const text = event.target.result;
+
+      // 1. 改行で1行ずつに分割する
+      const lines = text.split(/\r\n|\n/);
+
+      // 2. 2行目以降（データ部分）をループしてオブジェクトに変換する
+      const importedList = [];
+      for (let i = 1; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!line) continue; // 空行はスキップ
+
+        // CSVのカンマ区切りで分割（""で囲まれている場合なども考慮した簡易パース）
+        // 例: ["\"営業 太郎\"", "\"営業部\"", "\"1234\"", "\"合格\"", "\"令和6年10月24日\""]
+        const cols = line.split(",").map((col) => col.replace(/^"|"$/g, ""));
+
+        if (cols.length >= 4) {
+          importedList.push({
+            id: crypto.randomUUID(), // 読み込んだデータにも新しくIDを振る
+            name: cols[0],
+            group: cols[1],
+            number: cols[2],
+            result: cols[3],
+            date: cols[4] || getFormattedDate(), // 日付がなければ今日の日付を入れる
+          });
+        }
+      }
+
+      if (importedList.length > 0) {
+        // 3. 既存のリストを丸ごと置き換える
+
+        setList(importedList);
+        alert(
+          `${importedList.length} 件のデータをインポートしました！（既存のリストは置き換えられました）`,
+        );
+      } else {
+        alert("有効なデータが見つかりませんでした。");
+      }
+
+      // 同じファイルをもう一度選択できるように、inputの値をリセット
+      e.target.value = "";
+    };
+
+    // 文字コード（UTF-8）として読み込む
+    reader.readAsText(file, "utf-8");
+  };
+
   return (
     <>
       <div className="flex">
@@ -299,7 +403,26 @@ function App() {
 
         {/* 登録リスト */}
         <div className="listArea">
-          <h2>登録リスト ({list.length}件)</h2>
+          <div className="listAreaTop">
+            <h2>登録リスト ({list.length}件)</h2>
+            <div style={{ display: "flex", gap: "10px" }}>
+              <label
+                className="submitButton"
+                style={{ cursor: "pointer", display: "inline-block" }}
+              >
+                CSVをインポート
+                <input
+                  type="file"
+                  accept=".csv"
+                  onChange={handleImportCSV}
+                  style={{ display: "none" }} // 実際のファイル選択ボタンは隠してラベルをおしゃれにする
+                />
+              </label>
+              <button onClick={handleExportCSV} className="submitButton">
+                CSVとして保存（Excel用）
+              </button>
+            </div>
+          </div>
 
           <div className="listHeader">
             <div>名前</div>

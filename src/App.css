@@ -1,16 +1,16 @@
 body {
   margin: 0;
-  padding: 30px;
+  padding: 0 30px;
   font-family: sans-serif;
 }
 
 input,
 select {
   display: block;
-  width: 300px;
+  width: 270px;
   padding: 10px;
-  font-size: 20px;
-  margin-top: 10px;
+  font-size: 16px;
+  margin-top: 8px;
 }
 
 button {
@@ -19,10 +19,15 @@ button {
   cursor: pointer;
 }
 
+h1 {
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
 .flex {
   margin: 0 auto;
   display: flex;
-  width: 1400px;
+  width: 1200px;
   justify-content: space-between;
   gap: 20px;
 }
@@ -36,23 +41,27 @@ button {
   border-radius: 5px;
 }
 .inputDataArea {
-  margin-top: 30px;
-  padding: 20px;
-  border: 1px solid rgb(199, 199, 199);
+  margin-top: 20px;
+  padding: 15px;
+  border: 4px double rgb(137, 137, 137);
 }
 
 .inputDataArea h3 {
-  font-size: 22px;
+  font-size: 20px;
   margin: 0;
+}
+
+.inputDataArea p {
+  margin: 12px 0 4px;
 }
 
 .inputDataArea button {
   padding: 6px 12px;
-  margin-top: 20px;
+  margin-top: 15px;
   background-color: rgb(0, 187, 0);
   color: white;
   border-radius: 5px;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .modal,
@@ -109,10 +118,11 @@ button {
 }
 
 .memoArea {
-  margin-top: 200px;
-  width: 350px;
-  max-height: 600px;
-  border: 1px dashed rgb(199, 199, 199);
+  font-size: 14px;
+  margin-top: 120px;
+  width: 300px;
+  max-height: 350px;
+  border: 1px dashed rgb(156, 156, 156);
   padding: 20px;
 }
 
@@ -124,11 +134,11 @@ button {
 .listArea {
   width: 100%;
   max-width: 800px;
-  margin: 30px auto;
+  margin: 20px auto;
 }
 
 .listArea h2 {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 /* 見出し */
@@ -168,7 +178,7 @@ button {
 /* 証明書モーダル */
 .certificate-modal-content {
   background: white;
-  padding: 40px;
+  padding: 15px;
   border-radius: 8px;
   width: 700px;
   display: flex;
@@ -183,12 +193,13 @@ button {
   box-sizing: border-box;
   width: 655.8px;
   border: 3px double #333;
-  padding: 50px 20px;
+  padding: 20px 20px;
   background-color: #fdfbf7;
 }
 
 .cert-title {
   font-size: 50px;
+  margin-top: 0;
   margin-bottom: 30px;
   letter-spacing: 5px;
 }

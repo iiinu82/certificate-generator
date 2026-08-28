@@ -103,11 +103,12 @@ function App() {
     return `令和${reiwaYear}年${m}月${d}日`;
   };
 
+  // 登録
   const handleRegister = () => {
     const newItem = {
       ...formData,
-      id: crypto.randomUUID(), // 💡ここでユニークなIDを付与！
-      date: getFormattedDate(),
+      id: crypto.randomUUID(), // ID
+      date: getFormattedDate(), // 令和◯年◯月◯日
     };
     setList((prev) => [...prev, newItem]);
 
@@ -122,6 +123,16 @@ function App() {
     }, 0);
   };
 
+  // 登録のバリデーションチェック
+  const isFormValid =
+    formData.name &&
+    formData.name.trim() !== "" &&
+    formData.group &&
+    formData.group.trim() !== "" &&
+    formData.number &&
+    formData.number.trim() !== "" &&
+    formData.result &&
+    formData.result.trim() !== "";
   const handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -366,7 +377,18 @@ function App() {
                 キャンセル
               </button>
 
-              <button className="submitButton" type="submit" autoFocus>
+              <button
+                className="submitButton"
+                type="submit"
+                disabled={!isFormValid}
+                autoFocus
+                style={{
+                  backgroundColor: !isFormValid ? "#cccccc" : "#4CAF50",
+                  color: "white",
+                  cursor: !isFormValid ? "not-allowed" : "pointer",
+                  opacity: !isFormValid ? 0.6 : 1,
+                }}
+              >
                 登録 (Enter)
               </button>
             </div>
@@ -394,11 +416,11 @@ function App() {
                 setEditingItem({ ...editingItem, group: e.target.value })
               }
             >
-              <option value="1組">1組</option>
-              <option value="2組">2組</option>
-              <option value="3組">3組</option>
-              <option value="4組">4組</option>
-              <option value="5組">5組</option>
+              <option value="営業部">営業部</option>
+              <option value="総務部">総務部</option>
+              <option value="経理部">経理部</option>
+              <option value="企画部">企画部</option>
+              <option value="技術部">技術部</option>
             </select>
             <p>番号:</p>
             <input

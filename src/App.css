@@ -17,6 +17,7 @@ button {
   padding: 6px 12px;
   border-radius: 5px;
   cursor: pointer;
+  box-shadow: 2px 2px 5px 0px rgba(75, 75, 75, 0.4);
 }
 
 h1 {
@@ -43,7 +44,10 @@ h1 {
 .inputDataArea {
   margin-top: 20px;
   padding: 15px;
-  border: 4px double rgb(137, 137, 137);
+  border: 1px solid #0ab56b;
+  /* border: none; */
+  background-color: #eafff6;
+  border-radius: 5px;
 }
 
 .inputDataArea h3 {
@@ -58,7 +62,7 @@ h1 {
 .inputDataArea button {
   padding: 6px 12px;
   margin-top: 15px;
-  background-color: rgb(0, 187, 0);
+  background-color: rgb(77, 192, 77);
   color: white;
   border-radius: 5px;
   font-size: 16px;
@@ -107,13 +111,13 @@ h1 {
 .submitButton {
   padding: 6px 12px;
   border-radius: 5px;
-  background-color: rgb(0, 208, 0);
+  background-color: rgb(77, 192, 77);
   color: white;
 }
 .deleteButton {
   padding: 6px 12px;
   border-radius: 5px;
-  background-color: rgb(246, 0, 0);
+  background-color: rgb(255, 92, 92);
   color: white;
 }
 
@@ -145,9 +149,9 @@ h1 {
 }
 
 .listAreaTop button {
-  width: 220px;
+  width: 135px;
   height: 35px;
-  background-color: rgb(129, 129, 129);
+  background-color: rgba(42, 1, 154, 0.708);
 }
 
 /* 見出し */
@@ -171,11 +175,8 @@ h1 {
 .registrationItem {
   display: grid;
   grid-template-columns: 2fr 1.5fr 1fr 1fr 220px;
-
   align-items: center;
-
-  padding: 12px;
-
+  padding: 8px 12px;
   border-bottom: 1px solid #ddd;
 }
 

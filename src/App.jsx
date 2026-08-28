@@ -238,6 +238,7 @@ function App() {
     URL.revokeObjectURL(url);
   };
 
+  const fileInputRef = useRef(null);
   // 📂 CSVファイルを読み込んでリストを復元する関数
   const handleImportCSV = (e) => {
     const file = e.target.files[0];
@@ -406,20 +407,32 @@ function App() {
           <div className="listAreaTop">
             <h2>登録リスト ({list.length}件)</h2>
             <div style={{ display: "flex", gap: "10px" }}>
-              <label
+              {/* 💡 ボタンを押したら確認ダイアログを出す */}
+              <button
                 className="submitButton"
-                style={{ cursor: "pointer", display: "inline-block" }}
+                onClick={() => {
+                  const isConfirmed = window.confirm(
+                    "CSVファイルをインポートした場合、現在のリストの内容は失われます。よろしいですか？",
+                  );
+                  // 「OK」が押されたら、隠してあるファイル選択を開く
+                  if (isConfirmed && fileInputRef.current) {
+                    fileInputRef.current.click();
+                  }
+                }}
               >
                 CSVをインポート
-                <input
-                  type="file"
-                  accept=".csv"
-                  onChange={handleImportCSV}
-                  style={{ display: "none" }} // 実際のファイル選択ボタンは隠してラベルをおしゃれにする
-                />
-              </label>
+              </button>
+
+              <input
+                type="file"
+                accept=".csv"
+                ref={fileInputRef}
+                onChange={handleImportCSV}
+                style={{ display: "none" }} // 実際のファイル選択ボタンは隠してラベルをおしゃれにする
+              />
+
               <button onClick={handleExportCSV} className="submitButton">
-                CSVとして保存（Excel用）
+                CSVとして保存
               </button>
             </div>
           </div>
